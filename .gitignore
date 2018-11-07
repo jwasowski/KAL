@@ -1,3 +1,4 @@
-KALBatch/*
-target/*
-docs/*
+build
+target
+docs
+KALbatch

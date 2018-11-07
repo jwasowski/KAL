@@ -11,8 +11,17 @@
 <title>KAL Index</title>
 </head>
 <body>
-Index
-<a href="pages/search-page">Search Engine</a>
+<form action="pages/search-page">
+	<label for="gun">Gun</label><br /> 
+	<input name="name" type="text" placeholder="Gun name" /> <br /> 
+	<input checked="checked" name="gun-type" type="checkbox" value="pistol" /> Pistol <br /> 
+	<input name="gun-type" type="checkbox" value="rifle" /> Rifle <br />  
+  <input name="gun-type" type="checkbox" value="rifle" /> Shotgun <br />  
+	<label for="caliber">Caliber</label><br /> 
+	<input name="democheckbox" type="checkbox" value="1" /> Checkbox<br /> 
+	<label for="caliber">Caliber</label><br /> 
+  <button type="submit" value="Search">Search</button>
+</form>
 </body>
 </html>
 </jsp:root>
