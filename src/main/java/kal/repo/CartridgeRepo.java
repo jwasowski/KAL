@@ -45,7 +45,7 @@ public class CartridgeRepo implements Serializable {
 	}
 
 	public CartridgeH findByAmmoName(String ammoName) {
-		//Use Criteria
+		// TODO Use Criteria
 		return null;
 	}
 }
