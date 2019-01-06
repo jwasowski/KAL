@@ -24,28 +24,28 @@ public class CartridgeRepo implements Serializable {
 	private EntityManager em;
 	
 
-	public void addCartridge(List<CartridgeH> cartridge) {
+	public void addCartridges(List<CartridgeH> cartridge) {
 		for(CartridgeH cH: cartridge){
 			em.persist(cH);
 		}
 
 	}
 
-	public void removeCartridge(List<CartridgeH> cartridge) {
+	public void removeCartridges(List<CartridgeH> cartridge) {
 		for(CartridgeH cH: cartridge){
 			em.remove(cH);
 		}
 	}
 
-	public void updateCartridge(List<CartridgeH> cartridge) {
+	public void updateCartridges(List<CartridgeH> cartridge) {
 		for (CartridgeH cH : cartridge) {
 			em.refresh(cH);
 
 		}
 	}
 
-	public CartridgeH findByAmmoName(String ammoName) {
-		// TODO Use Criteria
+	public List<CartridgeH> findCartridges() {
+		// TODO Create Criteria search
 		return null;
 	}
 }

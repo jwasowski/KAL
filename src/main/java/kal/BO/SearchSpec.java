@@ -1,7 +1,10 @@
 package kal.BO;
 
 public class SearchSpec {
-public double value;
-/** Repository controller value (more / equal / less) */
-public String controlValue;
+	/** Numerical value for searching */
+	public double value;
+	/** String value for searching */
+	public String string;
+	/** Repository controller value (more / less) */
+	public String controlValue;
 }

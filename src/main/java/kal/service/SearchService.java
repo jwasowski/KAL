@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import kal.BO.SearchSpec;
 import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
 import kal.repo.CartridgeRepo;
@@ -26,27 +27,37 @@ public class SearchService implements Serializable {
 	@Named("firearmRepository")
 	private FirearmRepo firearmData;
 
-	public void addCartridge(List<CartridgeH> cartridges) {
-		cartridgeData.addCartridge(cartridges);
+	public void addCartridges(List<CartridgeH> cartridges) {
+		cartridgeData.addCartridges(cartridges);
 	}
 
-	public void removeCartridge(List<CartridgeH> cartridges) {
-		cartridgeData.removeCartridge(cartridges);
+	public void removeCartridges(List<CartridgeH> cartridges) {
+		cartridgeData.removeCartridges(cartridges);
 	}
 
-	public void updateCartridge(List<CartridgeH> cartridges) {
-		cartridgeData.updateCartridge(cartridges);
+	public void updateCartridges(List<CartridgeH> cartridges) {
+		cartridgeData.updateCartridges(cartridges);
 	}
 
-	public void addFirearm(List<FirearmH> firearms) {
-		firearmData.addFirearm(firearms);
+	public void addFirearms(List<FirearmH> firearms) {
+		firearmData.addFirearms(firearms);
 	}
 
-	public void removeFirearm(List<FirearmH> firearms) {
-		firearmData.removeFirearm(firearms);
+	public void removeFirearms(List<FirearmH> firearms) {
+		firearmData.removeFirearms(firearms);
 	}
 
-	public void updateFirearm(List<FirearmH> firearms) {
-		firearmData.updateFirearm(firearms);
+	public void updateFirearms(List<FirearmH> firearms) {
+		firearmData.updateFirearms(firearms);
+	}
+	
+	public List<FirearmH> findFirearms(List<SearchSpec> searchSpec){
+		//TODO Implementation
+		return null;
+	}
+	
+	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec){
+		//TODO Implementation
+		return null;
 	}
 }

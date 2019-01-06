@@ -13,7 +13,7 @@ import kal.BO.SearchSpec;
 @Dependent
 public class SearchSpecService {
 
-	public List<SearchSpec> createSearchSpec(Map<String,String> paramMap){
+	public List<SearchSpec> createSearchSpec(Map<String,String[]> paramMap){
 		
 		return null;
 	}
