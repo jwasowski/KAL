@@ -15,35 +15,50 @@ import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
 import kal.service.SearchService;
 import kal.service.SearchSpecService;
+
 @FrontCommandModel(FrontCommandModel.Type.SEARCH)
-public class SearchCommand extends FrontCommand{
+public class SearchCommand extends FrontCommand {
 	@Inject
 	@Named("searchService")
 	SearchService searchService;
 	@Inject
 	@Named("searchSpecService")
 	SearchSpecService searchSpecService;
+
 	@Override
 	public void process() throws ServletException, IOException {
-		int controlValue = checkSearchControlValues();
+		String gunControl = request.getParameter("gun-control");
+		String ammoControl = request.getParameter("ammo-control");
 		Map<String, String[]> paramMap = request.getParameterMap();
-		List<SearchSpec> searchData = searchSpecService.createSearchSpec(paramMap);
-		switch(controlValue){
-		case -1: response.sendError(400, "Bad request, dont try that!"); break;
-		case 0: List<FirearmH> firearms =  searchService.findFirearms(searchData);
-		request.setAttribute("response", firearms.size());
-		break;
-		case 1: List<CartridgeH> cartridges = searchService.findCartridges(searchData);
-		request.setAttribute("response", cartridges.size());
-		break;
+		//TODO Clean control value from map
+		int controlValue = checkSearchControlValues(gunControl,ammoControl);
+		if (controlValue == -1) {
+			response.sendError(400, "Bad request, dont try that!");
+			return;
+		} else if (controlValue == 0) {
+			List<SearchSpec> searchData = searchSpecService.createSearchSpec(paramMap);
+			List<FirearmH> firearms = searchService.findFirearms(searchData);
+			request.setAttribute("response", searchData.size());
+			request.setAttribute("responseParamMap", paramMap.values().toArray().toString());
+			forward("search");
+			return;
+		} else if (controlValue == 1) {
+			List<SearchSpec> searchData = searchSpecService.createSearchSpec(paramMap);
+			List<CartridgeH> cartridges = searchService.findCartridges(searchData);
+			request.setAttribute("response", searchData.size());
+			request.setAttribute("responseParamMap", paramMap.values().toArray().toString());
+			forward("search");
+			return;
 		}
 		forward("search");
+		return;
 	}
-	//TODO Test this method
-	private int checkSearchControlValues(){
-		if(("0").matches(request.getParameter("gun-control"))){
+
+	private int checkSearchControlValues(String gun, String ammo) {
+		if (gun != null && !gun.isEmpty() && !gun.equals("") && ("0").equals(gun)) {
 			return 0;
-		} else if(("1").matches(request.getParameter("ammo-control"))){
+		}
+		if (ammo != null && !ammo.isEmpty() && !ammo.equals("") && ("1").equals(ammo)) {
 			return 1;
 		}
 		return -1;

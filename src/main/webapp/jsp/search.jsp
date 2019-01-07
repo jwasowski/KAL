@@ -12,17 +12,17 @@
 </head>
 <body>
 <article>
-<form action="search-page">
+<form action="search" id="gun-form">
 	<label for="gun">Gun</label><br /> 
-	<input type="hidden" name="gun-control" value="1"/>
-	<input checked="checked" name="gun-unit-type" type="checkbox" value="0" /> Imperial (ticked) / Metric <br />
+	<input type="hidden" name="gun-control" value="0"/>
+	<input checked="checked" name="gun-unit-type" type="checkbox" value="1" /> Imperial (ticked) / Metric <br />
 	<input name="name" type="text" placeholder="Gun name" /> <br /> 
 	<input checked="checked" name="gun-type" type="checkbox" value="pistol" /> Pistol <br /> 
 	<input name="gun-type" type="checkbox" value="rifle" /> Rifle <br />  
   <input name="gun-type" type="checkbox" value="shotgun" /> Shotgun <br />  
 	<label for="gun-caliber">Caliber</label><br />
 	<input name="gun-caliber-value" type="number" placeholder="Caliber Value" /><br /> 
-<select>
+<select name="gun-caliber-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
@@ -69,10 +69,10 @@
  <button type="submit" value="Search">Search</button>
 </form></article>
 <article>
-<form action="search-page">
+<form action="search" id="ammo-form">
 <label for="ammo">Ammo</label><br />
- <input type="hidden" name="ammo-control" value="0"/>
-<input checked="checked" name="ammo-unit-type" type="checkbox" value="0" /> Imperial (ticked) / Metric <br />
+ <input type="hidden" name="ammo-control" value="1"/>
+<input checked="checked" name="ammo-unit-type" type="checkbox" value="1" /> Imperial (ticked) / Metric <br />
 	<input name="ammo-name" type="search" placeholder="Ammo name" /> <br />
 <label for="ammo-caliber">Caliber</label><br />
 	<input name="ammo-caliber-value" type="number" placeholder="Caliber Value" /><br /> 
@@ -124,6 +124,7 @@
 <button type="submit" value="Search">Search</button>
 </form></article>
 <p>${response}</p>
+<p>${responseParamMap}</p>
 </body>
 </html>
 </jsp:root>
