@@ -52,12 +52,10 @@ public class SearchService implements Serializable {
 	}
 	
 	public List<FirearmH> findFirearms(List<SearchSpec> searchSpec){
-		//TODO Implementation
-		return null;
+		return firearmData.findFirearms(searchSpec);
 	}
 	
 	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec){
-		//TODO Implementation
-		return null;
+		return cartridgeData.findCartridges(searchSpec);
 	}
 }

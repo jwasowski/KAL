@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import kal.BO.SearchSpec;
 import kal.hibernate.EManager;
 import kal.persistence.CartridgeH;
 @Named("cartridgeRepository")
@@ -44,7 +45,7 @@ public class CartridgeRepo implements Serializable {
 		}
 	}
 
-	public List<CartridgeH> findCartridges() {
+	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec) {
 		// TODO Create Criteria search
 		return null;
 	}

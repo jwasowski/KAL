@@ -1,6 +1,7 @@
 package kal.command;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,23 +31,24 @@ public class SearchCommand extends FrontCommand {
 		String gunControl = request.getParameter("gun-control");
 		String ammoControl = request.getParameter("ammo-control");
 		Map<String, String[]> paramMap = request.getParameterMap();
-		//TODO Clean control value from map
 		int controlValue = checkSearchControlValues(gunControl,ammoControl);
 		if (controlValue == -1) {
 			response.sendError(400, "Bad request, dont try that!");
 			return;
 		} else if (controlValue == 0) {
-			List<SearchSpec> searchData = searchSpecService.createSearchSpec(paramMap);
+			List<SearchSpec> searchData = searchSpecService.createGunSearchSpec(paramMap);
 			List<FirearmH> firearms = searchService.findFirearms(searchData);
+			//TODO generate data as JSON
 			request.setAttribute("response", searchData.size());
-			request.setAttribute("responseParamMap", paramMap.values().toArray().toString());
+			request.setAttribute("responseObject", firearms.size());
 			forward("search");
 			return;
 		} else if (controlValue == 1) {
-			List<SearchSpec> searchData = searchSpecService.createSearchSpec(paramMap);
+			List<SearchSpec> searchData = searchSpecService.createAmmoSearchSpec(paramMap);
 			List<CartridgeH> cartridges = searchService.findCartridges(searchData);
+			//TODO generate data as JSON
 			request.setAttribute("response", searchData.size());
-			request.setAttribute("responseParamMap", paramMap.values().toArray().toString());
+			request.setAttribute("responseObject", cartridges.size());
 			forward("search");
 			return;
 		}

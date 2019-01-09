@@ -14,11 +14,13 @@ public class SearchSpec {
 		
 	}
 	
-	public SearchSpec(double value, String controlValue){
+	public SearchSpec(String paramName, double value, String controlValue){
+		this.paramName = paramName;
 		this.value = value;
 		this.controlValue = controlValue;
 	}
-	public SearchSpec(String string){
+	public SearchSpec(String paramName, String string){
+		this.paramName = paramName;
 		this.string = string;
 	}
 	

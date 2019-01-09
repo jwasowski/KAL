@@ -13,56 +13,60 @@
 <body>
 <article>
 <form action="search" id="gun-form">
-	<label for="gun">Gun</label><br /> 
-	<input type="hidden" name="gun-control" value="0"/>
-	<input checked="checked" name="gun-unit-type" type="checkbox" value="1" /> Imperial (ticked) / Metric <br />
-	<input name="name" type="text" placeholder="Gun name" /> <br /> 
-	<input checked="checked" name="gun-type" type="checkbox" value="pistol" /> Pistol <br /> 
-	<input name="gun-type" type="checkbox" value="rifle" /> Rifle <br />  
-  <input name="gun-type" type="checkbox" value="shotgun" /> Shotgun <br />  
+	<label for="gun">Gun</label><br />
+	 <input type="hidden" name="gun-control" value="0"/>
+	<input checked="checked" name="gun-unit-type" type="checkbox" value="0" /> Imperial (ticked) / Metric <br />
+	<input name="gun-name" type="search" placeholder="Gun name" /> <br /> 
+	<input type="radio" name="gun-type" value="pistol" checked="checked"/> Pistol <br /> 
+	<input type="radio" name="gun-type" value="rifle"/> Rifle <br />
+	<input type="radio" name="gun-type" value="shotgun"/> Shotgun <br />  
 	<label for="gun-caliber">Caliber</label><br />
-	<input name="gun-caliber-value" type="number" placeholder="Caliber Value" /><br /> 
-<select name="gun-caliber-select">
-  <option value="&gt;">Bigger than</option>
-  <option value="&lt;">Smaller than</option>
-</select> <br/>
+	<input name="gun-caliber-value" type="text" placeholder="Caliber Value" /><br /> 
 <label for="gun-manufacturer">Manufacturer</label><br />
 	<input name="gun-manufacturer-name" type="search" placeholder="Gun manufacturer" /><br /> 
 <label for="gun-magazine">Magazine Capacity</label><br />
 	<input name="gun-magazine-capacity" type="number" placeholder="Magazine capacity" /><br /> 
-<select>
+<select name="gun-magazine-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="gun-muzzle">Muzzle length</label><br />
 	<input name="gun-muzzle-length" type="number" placeholder="Muzzle length" /><br /> 
-<select>
+<select name="gun-muzzle-select">
  <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
-<label for="weigth">Gun weight</label><br />
+<label for="weight">Gun weight</label><br />
 	<input name="gun-weight" type="number" placeholder="Gun weight" /><br /> 
-<select>
+<select name="gun-weight-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="gun-boreaxisoffset">Bore axis offset</label><br />
 	<input name="gun-bore-axis-offset" type="number" placeholder="Bore axis offset" /><br /> 
-<select>
+<select name="gun-bore-axis-offset-select">
 <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="gun-dimension">Dimensions</label><br />
 	<input name="gun-dimension-x" type="number" placeholder="Dimension x" /><br />
+	<select name="gun-dimension-x-select">
+<option value="&gt;">Bigger than</option>
+  <option value="&lt;">Smaller than</option>
+</select> <br/>
 	<input name="gun-dimension-y" type="number" placeholder="Dimension y" /><br /> 
+	<select name="gun-dimension-y-select">
+<option value="&gt;">Bigger than</option>
+  <option value="&lt;">Smaller than</option>
+</select> <br/>
 	<input name="gun-dimension-z" type="number" placeholder="Dimension z" /><br />  
-<select>
+<select name="gun-dimension-z-select">
 <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="gun-ccwbox">CCWBox</label><br />
-	<input name="gun-ccwbox-value" type="number" placeholder="CCWBox" /><br /> 
-<select>
+	<input name="gun-ccwbox" type="number" placeholder="CCWBox" /><br /> 
+<select name="gun-ccwbox-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
@@ -75,13 +79,9 @@
 <input checked="checked" name="ammo-unit-type" type="checkbox" value="1" /> Imperial (ticked) / Metric <br />
 	<input name="ammo-name" type="search" placeholder="Ammo name" /> <br />
 <label for="ammo-caliber">Caliber</label><br />
-	<input name="ammo-caliber-value" type="number" placeholder="Caliber Value" /><br /> 
-<select>
-  <option value="&gt;">Bigger than</option>
-  <option value="&lt;">Smaller than</option>
-</select> <br/>
+	<input name="ammo-caliber-value" type="text" placeholder="Caliber Value" /><br /> 
 <label for="ammo-type">Ammo type</label><br /> 
-<select>
+<select name="ammo-type-select">
   <option value="lrn">LRN</option>
   <option value="sj">SJ</option>
   <option value="sjhp">SJHP</option>
@@ -93,38 +93,38 @@
 </select> <br/>
 <label for="ammo-mass">Bullet mass</label><br /> 
 	<input name="ammo-mass-value" type="number" placeholder="Bullet mass" /><br />  
-<select>
+<select name="ammo-mass-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="ammo-muzzle-velocity">Muzzle velocity</label><br />
 	<input name="ammo-muzzle-velocity-value" type="number" placeholder="Muzzle velocity" /><br /> 
-<select>
+<select name="ammo-muzzle-velocity-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="ammo-muzzle-energy">Muzzle energy</label><br />
 	<input name="ammo-muzzle-energy-value" type="number" placeholder="Muzzle energy" /><br /> 
-<select>
+<select name="ammo-muzzle-energy-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="ammo-ballistic-coefficient">Ballistic coefficient</label><br />
 	<input name="ammo-ballistic-coefficient-value" type="number" placeholder="Ballistic coefficient" /><br /> 
-<select>
+<select name="ammo-ballistic-coefficient-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <label for="ammo-muzzle-velocity-per-mm">Muzzle velocity per 10 mm</label><br />
 	<input name="ammo-muzzle-velocity-per-mm-value" type="number" placeholder="Muzzle velocity per 10 mm" /><br /> 
-<select>
+<select name="ammo-muzzle-velocity-per-mm-select">
   <option value="&gt;">Bigger than</option>
   <option value="&lt;">Smaller than</option>
 </select> <br/>
 <button type="submit" value="Search">Search</button>
 </form></article>
 <p>${response}</p>
-<p>${responseParamMap}</p>
+<p>${responseObject}</p>
 </body>
 </html>
 </jsp:root>

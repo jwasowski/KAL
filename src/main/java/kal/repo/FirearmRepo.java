@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import kal.BO.SearchSpec;
 import kal.hibernate.EManager;
 import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
@@ -40,7 +41,7 @@ public class FirearmRepo implements Serializable{
 
 		}
 	}
-	public List<FirearmH> findFirearms() {
+	public List<FirearmH> findFirearms(List<SearchSpec> searchSpec) {
 		// TODO Create Criteria search
 		return null;
 	}
