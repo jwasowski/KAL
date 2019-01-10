@@ -8,6 +8,10 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import kal.BO.SearchSpec;
 import kal.hibernate.EManager;
@@ -42,7 +46,17 @@ public class FirearmRepo implements Serializable{
 		}
 	}
 	public List<FirearmH> findFirearms(List<SearchSpec> searchSpec) {
-		// TODO Create Criteria search
+		CriteriaBuilder critbuilder = em.getCriteriaBuilder();
+		CriteriaQuery<FirearmH> crit = critbuilder.createQuery(FirearmH.class);
+		Root<FirearmH> firearms = crit.from(FirearmH.class);
+		Predicate[] predicates = new Predicate[searchSpec.size()];
+		/*for (int i = 0; i <= usernames.size(); i++) {
+			predicates[i] = critbuilder.equal(users.get("username"), usernames.get(i));
+		}
+		crit.select(users).where(predicates);
+		List<UsersH> resultPM = em.createQuery(crit).getResultList();
+		List<Users> result = userMapper.usersHToUsersBulk(resultPM);
+		return result;*/
 		return null;
 	}
 }

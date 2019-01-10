@@ -13,7 +13,7 @@ import kal.command.CommandFactory;
 import kal.command.IFrontCommand;
 import kal.command.UnknownCommand;
 
-@WebServlet("/pages/*")
+//@WebServlet("/pages/*")
 public class FrontController extends HttpServlet {
 
 	/**

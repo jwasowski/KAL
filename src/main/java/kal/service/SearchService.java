@@ -58,4 +58,9 @@ public class SearchService implements Serializable {
 	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec){
 		return cartridgeData.findCartridges(searchSpec);
 	}
+	/** This method will be used*/
+	public List<CartridgeH> searchResources(List<SearchSpec> searchSpec){
+		//TODO Analyze SearchSpec and get data from both repos, then combine into Resource
+		return cartridgeData.findCartridges(searchSpec);
+	}
 }

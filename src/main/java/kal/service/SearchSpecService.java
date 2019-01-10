@@ -14,23 +14,20 @@ import kal.BO.SearchSpec;
 @Named("searchSpecService")
 @Dependent
 public class SearchSpecService {
-	/** @deprecated Does not serve a purpose */
-	public List<SearchSpec> createSearchSpec(Map<String, String[]> paramMap) {
+	/**  CUrrently used */
+	public List<SearchSpec> createSearchSpec(Map<String, List<String>> paramMap) {
 		List<SearchSpec> returnList = new ArrayList<SearchSpec>();
 		paramMap.forEach((k, v) -> {
-			if (v[0] != null && !v[0].isEmpty() && !v[0].equals("")) {
-				boolean isNumeric = v[0].chars().allMatch(Character::isDigit);
-				if (isNumeric) {
-					returnList.add(new SearchSpec("", Double.parseDouble(v[0]), ""));
-				} else {
-					returnList.add(new SearchSpec("", v[0]));
+			for(String s: v){
+				if(nullCheck(s)){
+					returnList.add(new SearchSpec(k, s));
 				}
 			}
 		});
 		return returnList;
 	}
 
-	// TODO For refactoring
+	/** @deprecated Needs to be refactored, possibly wont be used */
 	public List<SearchSpec> createGunSearchSpec(Map<String, String[]> paramMap) {
 		// TODO Stream map and check keys like select if values are < or > to
 		// reduce checks
@@ -143,7 +140,7 @@ public class SearchSpecService {
 		return returnList;
 	}
 
-	// TODO For refactoring
+	/** @deprecated Needs to be refactored, possibly wont be used */
 	public List<SearchSpec> createAmmoSearchSpec(Map<String, String[]> paramMap) {
 		// TODO Stream map and check keys like select if values are < or > to
 		// reduce checks
@@ -224,6 +221,8 @@ public class SearchSpecService {
 		return returnList;
 	}
 
+	
+	
 	private boolean nullCheck(String value) {
 		if (value != null && !value.isEmpty() && !value.equals("")) {
 			return true;
