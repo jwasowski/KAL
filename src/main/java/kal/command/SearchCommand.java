@@ -32,13 +32,12 @@ public class SearchCommand extends FrontCommand {
 		String ammoControl = request.getParameter("ammo-control");
 		Map<String, String[]> paramMap = request.getParameterMap();
 		int controlValue = checkSearchControlValues(gunControl,ammoControl);
-		if (controlValue == -1) {
+		/*if (controlValue == -1) {
 			response.sendError(400, "Bad request, dont try that!");
 			return;
 		} else if (controlValue == 0) {
 			List<SearchSpec> searchData = searchSpecService.createGunSearchSpec(paramMap);
 			List<FirearmH> firearms = searchService.findFirearms(searchData);
-			//TODO generate data as JSON
 			request.setAttribute("response", searchData.size());
 			request.setAttribute("responseObject", firearms.size());
 			forward("search");
@@ -46,12 +45,12 @@ public class SearchCommand extends FrontCommand {
 		} else if (controlValue == 1) {
 			List<SearchSpec> searchData = searchSpecService.createAmmoSearchSpec(paramMap);
 			List<CartridgeH> cartridges = searchService.findCartridges(searchData);
-			//TODO generate data as JSON
+			
 			request.setAttribute("response", searchData.size());
 			request.setAttribute("responseObject", cartridges.size());
 			forward("search");
 			return;
-		}
+		}*/
 		forward("search");
 		return;
 	}

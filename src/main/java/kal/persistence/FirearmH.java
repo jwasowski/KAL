@@ -19,7 +19,7 @@ public class FirearmH {
 	private String gunManufacturer;
 	private String gunModel;
 	private int stdMagazineCapacity;
-	private double muzzleLengtHmm;
+	private double muzzleLengthMm;
 	private double gunWeightEmptyGrams;
 	private double boreAxisOffsetMm;
 	private double dimensionX;
@@ -78,11 +78,11 @@ public class FirearmH {
 	}
 
 	public double getMuzzlelengthmm() {
-		return muzzleLengtHmm;
+		return muzzleLengthMm;
 	}
 
-	public void setMuzzlelengthmm(double muzzlelengthmm) {
-		this.muzzleLengtHmm = muzzlelengthmm;
+	public void setMuzzlelengthmm(double muzzleLengthMm) {
+		this.muzzleLengthMm = muzzleLengthMm;
 	}
 
 	public double getGunweightemptygrams() {

@@ -1,6 +1,33 @@
 package kal.BO;
 
 public class ResourceObject {
+	/** Firearm */
+	private String gunType;
+	/** Cartridge */
+	private String ammoType;
+	/** Firearm */
+	private int stdMagazineCapacity;
+	/** Firearm, Cartridge */
+	private String caliber;
+	/** Firearm */
+	private double gunWeightEmptyGrams;
+	/** Param (dimX) */
+	private double gunLength;
+	/** Firearm */
+	private double muzzleLengthMm;
+	/** Cartridge */
+	private double advMuzzleEnergyJ;
+	/** Cartridge */
+	private double advMuzzLeVelocityMps;
+	/** Cartridge */
+	private double bulletMassGrams;
+	/** Combined param */
+	private double effectiveRange;
+	/** Combined param */
+	private double gunRecoilX;
+	/** Combined param */
+	private double gunRecoilY;
+
 	public ResourceObject(String gunType, String ammoType, int stdMagazineCapacity, String caliber,
 			double gunWeightEmptyGrams, double gunLength, double muzzleLengthMm, double advMuzzleEnergyJ,
 			double advMuzzLeVelocityMps, double bulletMassGrams, double effectiveRange, double gunRecoilX,
@@ -24,28 +51,6 @@ public class ResourceObject {
 	public ResourceObject() {
 
 	}
-
-	private String gunType;
-	/** Cartridge */
-	private String ammoType;
-	private int stdMagazineCapacity;
-	private String caliber;
-	private double gunWeightEmptyGrams;
-	/** Param (dimX) */
-	private double gunLength;
-	private double muzzleLengthMm;
-	/** Cartridge */
-	private double advMuzzleEnergyJ;
-	/** Cartridge */
-	private double advMuzzLeVelocityMps;
-	/** Cartridge */
-	private double bulletMassGrams;
-	/** Combined param */
-	private double effectiveRange;
-	/** Combined param */
-	private double gunRecoilX;
-	/** Combined param */
-	private double gunRecoilY;
 
 	public String getGunType() {
 		return gunType;

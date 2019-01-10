@@ -50,13 +50,16 @@ public class FirearmRepo implements Serializable{
 		CriteriaQuery<FirearmH> crit = critbuilder.createQuery(FirearmH.class);
 		Root<FirearmH> firearms = crit.from(FirearmH.class);
 		Predicate[] predicates = new Predicate[searchSpec.size()];
-		/*for (int i = 0; i <= usernames.size(); i++) {
-			predicates[i] = critbuilder.equal(users.get("username"), usernames.get(i));
+		for (int i = 0; i <= searchSpec.size(); i++) {
+			//predicates[i] = critbuilder.equal(searchSpec.get("username"), searchSpec.get(i));
+			
 		}
-		crit.select(users).where(predicates);
-		List<UsersH> resultPM = em.createQuery(crit).getResultList();
-		List<Users> result = userMapper.usersHToUsersBulk(resultPM);
-		return result;*/
-		return null;
+		crit.select(firearms).where(predicates);
+		List<FirearmH> resultPM = em.createQuery(crit).getResultList();
+		
+		return resultPM;
+		
+		
 	}
+	
 }
