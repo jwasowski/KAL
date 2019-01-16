@@ -1,5 +1,8 @@
 package kal.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
@@ -9,6 +12,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import kal.hibernate.EManager;
+import kal.persistence.CaliberH;
 import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
 
@@ -22,9 +26,11 @@ public class StartUpRoutineBean {
 
 	@PostConstruct
 	private void startup() {
+		CaliberH caliber = new CaliberH();
+		caliber.setCaliber("9x19");
 		
 		FirearmH firearm = new FirearmH();
-		firearm.setGuncaliber("9x19");
+		firearm.setCaliber(caliber);
 		firearm.setGuntype("Handgun");
 		firearm.setGunmanufacturer("Glock");
 		firearm.setGunmodel("19 Gen4");
@@ -37,7 +43,7 @@ public class StartUpRoutineBean {
 		firearm.setDimensionz(128.0);
 		firearm.setCcwbox(1.87*0.32*1.28);
 		CartridgeH cartridge = new CartridgeH();
-		cartridge.setAmmocaliber("9x19");
+		cartridge.setCaliber(caliber);
 		cartridge.setAmmotype("FMJ");
 		cartridge.setAmmomanufacturer("Federal");
 		cartridge.setAmmoname("American Eagle");
@@ -45,6 +51,9 @@ public class StartUpRoutineBean {
 		cartridge.setAdvmuzzlevelocitymps(359.664);
 		cartridge.setAdvmuzzleenergyj(356/0.7375621);
 		cartridge.setBallisticcoefficient(0.19);
+		caliber.setCartridges(new ArrayList<>(Arrays.asList(cartridge)));
+		caliber.setFirearms(new ArrayList<>(Arrays.asList(firearm)));
+		em.persist(caliber);
 		em.persist(firearm);
 		em.persist(cartridge);
 

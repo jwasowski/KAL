@@ -28,7 +28,7 @@ public class ResourceObject {
 	/** Combined param */
 	private double gunRecoilY;
 
-	public ResourceObject(String gunType, String ammoType, int stdMagazineCapacity, String caliber,
+	/*public ResourceObject(String gunType, String ammoType, int stdMagazineCapacity, String caliber,
 			double gunWeightEmptyGrams, double gunLength, double muzzleLengthMm, double advMuzzleEnergyJ,
 			double advMuzzLeVelocityMps, double bulletMassGrams, double effectiveRange, double gunRecoilX,
 			double gunRecoilY) {
@@ -46,7 +46,7 @@ public class ResourceObject {
 		this.effectiveRange = effectiveRange;
 		this.gunRecoilX = gunRecoilX;
 		this.gunRecoilY = gunRecoilY;
-	}
+	}*/
 
 	public ResourceObject() {
 

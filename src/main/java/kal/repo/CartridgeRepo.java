@@ -2,6 +2,7 @@ package kal.repo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -47,6 +48,7 @@ public class CartridgeRepo implements Serializable {
 
 	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec) {
 		// TODO Create Criteria search
+		List<String> paramList = Arrays.asList("ammo-type","caliber","ammo-energy","ammo-velocity","ammo-mass","ammo-round-type");
 		return null;
 	}
 }

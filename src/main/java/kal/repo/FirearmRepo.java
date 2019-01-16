@@ -18,9 +18,10 @@ import kal.BO.SearchSpec;
 import kal.hibernate.EManager;
 import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
+
 @Named("firearmRepository")
 @Dependent
-public class FirearmRepo implements Serializable{
+public class FirearmRepo implements Serializable {
 	/**
 	 * 
 	 */
@@ -28,40 +29,64 @@ public class FirearmRepo implements Serializable{
 	@Inject
 	@EManager
 	private EntityManager em;
-	private List<FirearmH> data = new ArrayList<FirearmH>();
+	
 
 	public void addFirearms(List<FirearmH> firearm) {
-		data.addAll(firearm);
-
+		for (FirearmH f : firearm) {
+			em.persist(f);
+		}
 	}
 
 	public void removeFirearms(List<FirearmH> firearm) {
-		data.removeAll(firearm);
-
+		for (FirearmH f : firearm) {
+			em.remove(f);
+		}
 	}
 
 	public void updateFirearms(List<FirearmH> firearm) {
-		for (FirearmH fH : firearm) {
-			data.set(fH.getId(), fH);
-
-		}
+		// TODO If ever needed, implement it
 	}
+
 	public List<FirearmH> findFirearms(List<SearchSpec> searchSpec) {
 		CriteriaBuilder critbuilder = em.getCriteriaBuilder();
 		CriteriaQuery<FirearmH> crit = critbuilder.createQuery(FirearmH.class);
 		Root<FirearmH> firearms = crit.from(FirearmH.class);
 		Predicate[] predicates = new Predicate[searchSpec.size()];
-		//TODO Check and build OR predicates and AND predicates, then both of them
-		for (int i = 0; i <= searchSpec.size(); i++) {
-			//predicates[i] = critbuilder.equal(searchSpec.get("username"), searchSpec.get(i));
-			
+		List<Predicate> predicatesList = new ArrayList<Predicate>();
+		// TODO Check and build OR predicates and AND predicates, then both of
+		// them
+		List<String> paramList = Arrays.asList("gun-type", "caliber", "gun-magazine", "gun-weight", "gun-length",
+				"gun-barrel-length");
+		int i = 0;
+		for (String param : paramList) {
+			// predicates[i] = critbuilder.equal(searchSpec.get("username"),
+			// searchSpec.get(i));
+			switcher(param,predicatesList);
+
 		}
-		crit.select(firearms).where(predicates);
+		crit.select(firearms).where(predicatesList.toArray(new Predicate[predicatesList.size()]));
 		List<FirearmH> resultPM = em.createQuery(crit).getResultList();
-		
+
 		return resultPM;
-		
-		
+
 	}
-	
+
+	private void switcher(String param, List<Predicate> predicates) {
+		switch (param) {
+		case "gun-type":
+			break;
+		case "caliber":
+			break;
+		case "gun-magazine":
+			break;
+		case "gun-weight":
+			break;
+		case "gun-length":
+			break;
+		case "gun-barrel-length":
+			break;
+
+		}
+	}
+
 }

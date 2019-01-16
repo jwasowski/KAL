@@ -1,9 +1,12 @@
 package kal.persistence;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,9 +18,11 @@ public class FirearmH {
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int id;
 	private String gunType;
-	private String gunCaliber;
 	private String gunManufacturer;
 	private String gunModel;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "caliber_id")
+	private CaliberH caliber;
 	private int stdMagazineCapacity;
 	private double muzzleLengthMm;
 	private double gunWeightEmptyGrams;
@@ -45,12 +50,12 @@ public class FirearmH {
 		this.gunType = guntype;
 	}
 
-	public String getGuncaliber() {
-		return gunCaliber;
+	public CaliberH getCaliber() {
+		return caliber;
 	}
 
-	public void setGuncaliber(String guncaliber) {
-		this.gunCaliber = guncaliber;
+	public void setCaliber(CaliberH caliber) {
+		this.caliber = caliber;
 	}
 
 	public String getGunmanufacturer() {

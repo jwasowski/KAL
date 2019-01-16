@@ -16,6 +16,7 @@ import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
 import kal.repo.CartridgeRepo;
 import kal.repo.FirearmRepo;
+import kal.repo.ResourceRepo;
 
 @Named("searchService")
 @SessionScoped
@@ -31,6 +32,9 @@ public class SearchService implements Serializable {
 	@Inject
 	@Named("firearmRepository")
 	private FirearmRepo firearmData;
+	@Inject
+	@Named("resourceRepository")
+	private ResourceRepo resourceData;
 
 	public void addCartridges(List<CartridgeH> cartridges) {
 		cartridgeData.addCartridges(cartridges);
@@ -59,16 +63,19 @@ public class SearchService implements Serializable {
 	/** This method will be used */
 	public List<ResourceObject> searchResources(List<SearchSpec> searchSpec) {
 		// TODO Get data from both repos, then combine
-		// into Resource
+		// into Resource or create one query already combining data using join
+		// statement
 		List<SearchSpec> searchSpecCartridge = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("ammo") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
 		List<SearchSpec> searchSpecFirearms = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("gun") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
-		List<FirearmH> listFirearms = firearmData.findFirearms(searchSpecFirearms);
-		List<CartridgeH> listCartriges = cartridgeData.findCartridges(searchSpecCartridge);
+		//resourceData.findResources(searchSpecCartridge, searchSpecFirearms);
+		/*List<FirearmH> listFirearms = firearmData.findFirearms(searchSpecFirearms);
+		List<CartridgeH> listCartriges = cartridgeData.findCartridges(searchSpecCartridge);*/
+		
 
-		return null;
+		return resourceData.findResources(searchSpecCartridge, searchSpecFirearms);
 	}
 }
