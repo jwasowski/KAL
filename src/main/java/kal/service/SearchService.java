@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import kal.repo.FirearmRepo;
 
 @Named("searchService")
 @SessionScoped
+// @Dependent
 public class SearchService implements Serializable {
 	/**
 	 * 
@@ -58,13 +60,15 @@ public class SearchService implements Serializable {
 	public List<ResourceObject> searchResources(List<SearchSpec> searchSpec) {
 		// TODO Get data from both repos, then combine
 		// into Resource
-		List<SearchSpec> searchSpecCartridge = searchSpec.stream().filter(ss -> ss.paramName.contains("ammo"))
-				.filter(ss -> ss.paramName.contains("caliber")).collect(Collectors.toList());
-		List<SearchSpec> searchSpecFirearms = searchSpec.stream().filter(ss -> ss.paramName.contains("gun"))
-				.filter(ss -> ss.paramName.contains("caliber")).collect(Collectors.toList());
+		List<SearchSpec> searchSpecCartridge = searchSpec.stream()
+				.filter(ss -> ss.paramName.contains("ammo") || ss.paramName.contains("caliber"))
+				.collect(Collectors.toList());
+		List<SearchSpec> searchSpecFirearms = searchSpec.stream()
+				.filter(ss -> ss.paramName.contains("gun") || ss.paramName.contains("caliber"))
+				.collect(Collectors.toList());
 		List<FirearmH> listFirearms = firearmData.findFirearms(searchSpecFirearms);
 		List<CartridgeH> listCartriges = cartridgeData.findCartridges(searchSpecCartridge);
-		
+
 		return null;
 	}
 }

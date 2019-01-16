@@ -2,6 +2,7 @@ package kal.repo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -50,6 +51,7 @@ public class FirearmRepo implements Serializable{
 		CriteriaQuery<FirearmH> crit = critbuilder.createQuery(FirearmH.class);
 		Root<FirearmH> firearms = crit.from(FirearmH.class);
 		Predicate[] predicates = new Predicate[searchSpec.size()];
+		//TODO Check and build OR predicates and AND predicates, then both of them
 		for (int i = 0; i <= searchSpec.size(); i++) {
 			//predicates[i] = critbuilder.equal(searchSpec.get("username"), searchSpec.get(i));
 			

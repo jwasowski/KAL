@@ -1,7 +1,5 @@
 package kal.service;
 
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
@@ -10,7 +8,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import kal.command.FrontCommandModel;
 import kal.hibernate.EManager;
 import kal.persistence.CartridgeH;
 import kal.persistence.FirearmH;
@@ -25,10 +22,6 @@ public class StartUpRoutineBean {
 
 	@PostConstruct
 	private void startup() {
-		// List<Config> result = em.createNamedQuery("config.check",
-		// Config.class).getResultList();
-		Map<String, FrontCommandModel.Type> commandMap = CommandList.getCommandMap();
-		commandMap.put("GET/search", FrontCommandModel.Type.SEARCH);
 		
 		FirearmH firearm = new FirearmH();
 		firearm.setGuncaliber("9x19");
