@@ -5,6 +5,7 @@
 	<persistence-unit name="kal">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>jdbc/kal</jta-data-source>
+		<class>kal.persistence.CaliberH</class>
 		<class>kal.persistence.CartridgeH</class>
 		<class>kal.persistence.FirearmH</class>
 		<properties>

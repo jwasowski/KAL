@@ -1,6 +1,8 @@
 package kal.BO;
-
+//TODO Check params
 public class ResourceObject {
+	/** Firearm */
+	private String gunManufacturer;
 	/** Firearm */
 	private String gunType;
 	/** Cartridge */
@@ -9,6 +11,10 @@ public class ResourceObject {
 	private int stdMagazineCapacity;
 	/** Firearm, Cartridge */
 	private String caliber;
+	/** Cartridge */
+	private String ammoManufacturer;
+	/** Cartridge */
+	private String ammoName;
 	/** Firearm */
 	private double gunWeightEmptyGrams;
 	/** Param (dimX) */
@@ -28,25 +34,30 @@ public class ResourceObject {
 	/** Combined param */
 	private double gunRecoilY;
 
-	/*public ResourceObject(String gunType, String ammoType, int stdMagazineCapacity, String caliber,
-			double gunWeightEmptyGrams, double gunLength, double muzzleLengthMm, double advMuzzleEnergyJ,
-			double advMuzzLeVelocityMps, double bulletMassGrams, double effectiveRange, double gunRecoilX,
-			double gunRecoilY) {
+	
+
+	public ResourceObject(String gunManufacturer, String gunType, String ammoType, int stdMagazineCapacity,
+			String caliber, String ammoManufacturer, String ammoName, double gunWeightEmptyGrams, double gunLength,
+			double muzzleLengthMm, double advMuzzleEnergyJ, double advMuzzLeVelocityMps, double bulletMassGrams/*,
+			double effectiveRange, double gunRecoilX, double gunRecoilY*/) {
 		super();
+		this.gunManufacturer = gunManufacturer;
 		this.gunType = gunType;
 		this.ammoType = ammoType;
 		this.stdMagazineCapacity = stdMagazineCapacity;
 		this.caliber = caliber;
+		this.ammoManufacturer = ammoManufacturer;
+		this.ammoName = ammoName;
 		this.gunWeightEmptyGrams = gunWeightEmptyGrams;
 		this.gunLength = gunLength;
 		this.muzzleLengthMm = muzzleLengthMm;
 		this.advMuzzleEnergyJ = advMuzzleEnergyJ;
 		this.advMuzzLeVelocityMps = advMuzzLeVelocityMps;
 		this.bulletMassGrams = bulletMassGrams;
-		this.effectiveRange = effectiveRange;
+		/*this.effectiveRange = effectiveRange;
 		this.gunRecoilX = gunRecoilX;
-		this.gunRecoilY = gunRecoilY;
-	}*/
+		this.gunRecoilY = gunRecoilY;*/
+	}
 
 	public ResourceObject() {
 
@@ -154,6 +165,30 @@ public class ResourceObject {
 
 	public void setGunRecoilY(double gunRecoilY) {
 		this.gunRecoilY = gunRecoilY;
+	}
+
+	public String getGunManufacturer() {
+		return gunManufacturer;
+	}
+
+	public void setGunManufacturer(String gunManufacturer) {
+		this.gunManufacturer = gunManufacturer;
+	}
+
+	public String getAmmoManufacturer() {
+		return ammoManufacturer;
+	}
+
+	public void setAmmoManufacturer(String ammoManufacturer) {
+		this.ammoManufacturer = ammoManufacturer;
+	}
+
+	public String getAmmoName() {
+		return ammoName;
+	}
+
+	public void setAmmoName(String ammoName) {
+		this.ammoName = ammoName;
 	}
 
 }

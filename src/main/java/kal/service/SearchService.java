@@ -62,8 +62,7 @@ public class SearchService implements Serializable {
 
 	/** This method will be used */
 	public List<ResourceObject> searchResources(List<SearchSpec> searchSpec) {
-		// TODO Get data from both repos, then combine
-		// into Resource or create one query already combining data using join
+		// TODO Create one query already combining data using join
 		// statement
 		List<SearchSpec> searchSpecCartridge = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("ammo") || ss.paramName.contains("caliber"))
@@ -71,10 +70,6 @@ public class SearchService implements Serializable {
 		List<SearchSpec> searchSpecFirearms = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("gun") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
-		//resourceData.findResources(searchSpecCartridge, searchSpecFirearms);
-		/*List<FirearmH> listFirearms = firearmData.findFirearms(searchSpecFirearms);
-		List<CartridgeH> listCartriges = cartridgeData.findCartridges(searchSpecCartridge);*/
-		
 
 		return resourceData.findResources(searchSpecCartridge, searchSpecFirearms);
 	}

@@ -12,14 +12,19 @@ import kal.BO.SearchSpec;
 @Named("searchSpecService")
 @Dependent
 public class SearchSpecService {
-	/**  CUrrently used */
+	/**  Currently used */
 	public List<SearchSpec> createSearchSpec(Map<String, List<String>> paramMap) {
 		List<SearchSpec> returnList = new ArrayList<SearchSpec>();
 		paramMap.forEach((k, v) -> {
 			for(String s: v){
 				if(nullCheck(s)){
+					//TODO isDigit is not reading "," and "."
+					boolean isDigit = s.chars().allMatch(Character::isDigit);
+					if(isDigit){
+						returnList.add(new SearchSpec(k, Double.parseDouble(s)));
+					} else{
 					returnList.add(new SearchSpec(k, s));
-				}
+				}}
 			}
 		});
 		return returnList;
@@ -33,4 +38,6 @@ public class SearchSpecService {
 			return false;
 		}
 	}
+	
+	
 }

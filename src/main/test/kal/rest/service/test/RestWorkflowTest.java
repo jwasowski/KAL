@@ -27,11 +27,12 @@ public class RestWorkflowTest {
 		paramMap.put("caliber", Arrays.asList("caliber1", "caliber2"));
 		paramMap.put("ammo-type", Arrays.asList("ammotype1", "ammotype2"));
 		paramMap.put("gun-type", Arrays.asList("pistol"));
-		paramMap.put("ammo-round-type", Arrays.asList("ammoround1", "ammoround2"));
+		paramMap.put("gun-length", Arrays.asList("25","125,8","180.54"));
+		paramMap.put("ammo-manufacturer", Arrays.asList("producer1", "producer2"));
 		List<SearchSpec> searchSpec = createSearchSpec(paramMap);
 		System.out.println("SearchSpec Contents:");
-		System.out.println("paramName | string");
-		searchSpec.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string));
+		System.out.println("paramName | string | value");
+		searchSpec.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string+ " " +SearchSpec.value));
 		searchResources(searchSpec);
 		/*Predicate[] predicates = new Predicate[searchSpec.size()];
 		Arrays.fill(predicates,0,2, "yolo");
@@ -43,13 +44,33 @@ public class RestWorkflowTest {
 
 	}
 
+	private boolean digitParser(String s){
+		boolean isDigit = false;
+		if(s.contains(",")){
+			s = s.replace(",", ".");}
+		for(int i=0;i<s.length();i++){
+			char character = s.charAt(i);
+			if(Character.isDigit(character) || s.contains(".") || s.contains(",")){
+				isDigit = true;
+			} else {
+				return false;
+			}
+		}
+		
+		return isDigit;
+	}
+	
 	public List<SearchSpec> createSearchSpec(Map<String, List<String>> paramMap) {
 		List<SearchSpec> returnList = new ArrayList<SearchSpec>();
 		paramMap.forEach((k, v) -> {
-			for (String s : v) {
-				if (nullCheck(s)) {
+			for(String s: v){
+				if(nullCheck(s)){
+					boolean isDigit = digitParser(s);
+					if(isDigit){
+						returnList.add(new SearchSpec(k, Double.parseDouble(s)));
+					} else{
 					returnList.add(new SearchSpec(k, s));
-				}
+				}}
 			}
 		});
 		return returnList;
@@ -73,11 +94,11 @@ public class RestWorkflowTest {
 				.filter(ss -> ss.paramName.contains("gun") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
 		System.out.println("SearchSpecCartridge Contents:");
-		System.out.println("paramName | string");
-		searchSpecCartridge.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string));
+		System.out.println("paramName | string | value");
+		searchSpecCartridge.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string+ " " +SearchSpec.value));
 		System.out.println("SearchSpecFirearms Contents:");
-		System.out.println("paramName | string");
-		searchSpecFirearms.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string));
+		System.out.println("paramName | string | value");
+		searchSpecFirearms.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string+ " " +SearchSpec.value));
 		/*
 		 * List<FirearmH> listFirearms =
 		 * firearmData.findFirearms(searchSpecFirearms); List<CartridgeH>
