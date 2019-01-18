@@ -2,6 +2,7 @@ package kal.persistence;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,11 @@ public class CaliberH {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id;
+	@Column(name="caliber")
 	private String caliber;
-	@OneToMany(mappedBy = "caliber")
+	@OneToMany(mappedBy = "caliberVal")
 	private List<FirearmH> firearms;
-	@OneToMany(mappedBy = "caliber")
+	@OneToMany(mappedBy = "caliberVal")
 	private List<CartridgeH> cartridges;
 
 	public int getId() {

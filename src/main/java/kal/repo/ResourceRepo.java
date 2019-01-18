@@ -40,9 +40,10 @@ public class ResourceRepo implements Serializable {
 			List<SearchSpec> searchSpecFirearms) {
 		CriteriaBuilder critbuilder = em.getCriteriaBuilder();
 		CriteriaQuery<ResourceObject> query = critbuilder.createQuery(ResourceObject.class);
-		Root<FirearmH> firearms = query.from(FirearmH.class);
-		Join<FirearmH, CaliberH> calibers = firearms.join("caliber", JoinType.LEFT);
-		Join<CaliberH, CartridgeH> cartridges = calibers.join("caliber", JoinType.LEFT);
+		Root<CaliberH> calibers = query.from(CaliberH.class);
+		// Target of Join is field from CaliberH
+		Join<CaliberH, FirearmH> firearms = calibers.join("firearms", JoinType.LEFT);
+		Join<CaliberH, CartridgeH> cartridges = calibers.join("cartridges", JoinType.LEFT);
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 		// TODO Check and build OR predicates and AND predicates, then combine
 		// both of
@@ -53,7 +54,7 @@ public class ResourceRepo implements Serializable {
 				"gun-length", "gun-barrel-length", "ammo-type", "caliber", "ammo-manufacturer", "ammo-name",
 				"ammo-energy", "ammo-velocity", "ammo-mass");
 		for (String param : paramList) {
-			switcher(param, predicatesList, critbuilder, searchSpecCartridge, searchSpecFirearms, firearms, calibers,
+			switcher(param, predicatesList, critbuilder, searchSpecCartridge, searchSpecFirearms, calibers, firearms,
 					cartridges);
 		}
 		// TODO Map results to ResourceObjects
@@ -72,8 +73,8 @@ public class ResourceRepo implements Serializable {
 	}
 
 	private void switcher(String param, List<Predicate> predicates, CriteriaBuilder critbuilder,
-			List<SearchSpec> searchSpecCartridges, List<SearchSpec> searchSpecFirearms, Root<FirearmH> firearms,
-			Join<FirearmH, CaliberH> calibers, Join<CaliberH, CartridgeH> cartridges) {
+			List<SearchSpec> searchSpecCartridges, List<SearchSpec> searchSpecFirearms, Root<CaliberH> calibers,
+			Join<CaliberH, FirearmH> firearms, Join<CaliberH, CartridgeH> cartridges) {
 		Predicate[] localPredicates;
 		switch (param) {
 		case "gun-type":
@@ -97,9 +98,7 @@ public class ResourceRepo implements Serializable {
 				int i = 0;
 				localPredicates = new Predicate[caliber.size()];
 				for (SearchSpec ss : caliber) {
-					// ** Doesn't matter from where caliber param is taken
-					// from*/
-					localPredicates[i] = critbuilder.equal(firearms.get("caliber"), ss.string);
+					localPredicates[i] = critbuilder.equal(firearms.get("caliberVal"), ss.string);
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));

@@ -27,18 +27,15 @@ public class RestWorkflowTest {
 		paramMap.put("caliber", Arrays.asList("caliber1", "caliber2"));
 		paramMap.put("ammo-type", Arrays.asList("ammotype1", "ammotype2"));
 		paramMap.put("gun-type", Arrays.asList("pistol"));
-		paramMap.put("gun-length", Arrays.asList("25","125,8","180.54"));
+		paramMap.put("gun-length", Arrays.asList("25","1 25,8","180.54", ".14 55", ".54", "54.", " 5. 4 "));
 		paramMap.put("ammo-manufacturer", Arrays.asList("producer1", "producer2"));
 		List<SearchSpec> searchSpec = createSearchSpec(paramMap);
 		System.out.println("SearchSpec Contents:");
 		System.out.println("paramName | string | value");
 		searchSpec.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string+ " " +SearchSpec.value));
 		searchResources(searchSpec);
-		/*Predicate[] predicates = new Predicate[searchSpec.size()];
-		Arrays.fill(predicates,0,2, "yolo");
-		Arrays.fill(predicates,2,3, "dupa");
-		Stream.of(predicates).forEach(System.out::println);*/
-		// TODO Update test with Firearm and Cartrdige Repo logic
+		
+		// TODO Update test with Resource repo logic
 		assertEquals(true, true);
 		//fail();
 
@@ -46,12 +43,15 @@ public class RestWorkflowTest {
 
 	private boolean digitParser(String s){
 		boolean isDigit = false;
-		if(s.contains(",")){
-			s = s.replace(",", ".");}
+		int counter =0;
+		char dot = '.';
 		for(int i=0;i<s.length();i++){
 			char character = s.charAt(i);
-			if(Character.isDigit(character) || s.contains(".") || s.contains(",")){
+			if(Character.isDigit(character) || s.contains(".") && counter<=1 ){
 				isDigit = true;
+				if(Character.compare(character, dot ) == 0){
+					counter++;
+				}
 			} else {
 				return false;
 			}
@@ -65,6 +65,8 @@ public class RestWorkflowTest {
 		paramMap.forEach((k, v) -> {
 			for(String s: v){
 				if(nullCheck(s)){
+					s = s.replace(",", ".");
+					s = s.replaceAll("\\s", "");
 					boolean isDigit = digitParser(s);
 					if(isDigit){
 						returnList.add(new SearchSpec(k, Double.parseDouble(s)));

@@ -35,7 +35,11 @@ public class SearchResources {
 		Map<String, List<String>> paramMap = ui.getQueryParameters();
 		List<SearchSpec> searchSpec = searchSpecService.createSearchSpec(paramMap);
 		List<ResourceObject> returnList = searchService.searchResources(searchSpec);
-		return Response.ok(returnList).build();
+		if(!returnList.isEmpty()){
+		return Response.ok(returnList).build();}
+		else {
+			return Response.ok("Nothing found").build();
+		}
 	}
 	// TODO Create endpoints for frontend selects to support AJAX calls
 }

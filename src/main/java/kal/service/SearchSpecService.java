@@ -18,8 +18,9 @@ public class SearchSpecService {
 		paramMap.forEach((k, v) -> {
 			for(String s: v){
 				if(nullCheck(s)){
-					//TODO isDigit is not reading "," and "."
-					boolean isDigit = s.chars().allMatch(Character::isDigit);
+					s = s.replace(",", ".");
+					s = s.replaceAll("\\s", "");
+					boolean isDigit = digitParser(s);
 					if(isDigit){
 						returnList.add(new SearchSpec(k, Double.parseDouble(s)));
 					} else{
@@ -39,5 +40,21 @@ public class SearchSpecService {
 		}
 	}
 	
-	
+	private boolean digitParser(String s){
+		boolean isDigit = false;
+		int counter =0;
+		char dot = '.';
+		for(int i=0;i<s.length();i++){
+			char character = s.charAt(i);
+			if(Character.isDigit(character) || s.contains(".") && counter<=1 ){
+				isDigit = true;
+				if(Character.compare(character, dot ) == 0){
+					counter++;
+				}
+			} else {
+				return false;
+			}
+		}
+		return isDigit;
+	}
 }

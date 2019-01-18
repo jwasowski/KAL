@@ -1,5 +1,6 @@
 package kal.persistence;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,13 +20,20 @@ public class CartridgeH {
 	private int id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "caliber_id")
-	private CaliberH caliber;
+	private CaliberH caliberVal;
+	@Column(name="ammoType")
 	private String ammoType;
+	@Column(name="ammoManufacturer")
 	private String ammoManufacturer;
+	@Column(name="ammoName")
 	private String ammoName;
+	@Column(name="bulletMassGrams")
 	private double bulletMassGrams;
+	@Column(name="advMuzzLeVelocityMps")
 	private double advMuzzLeVelocityMps;
+	@Column(name="advMuzzleEnergyJ")
 	private double advMuzzleEnergyJ;
+	@Column(name="ballisticCoefficient")
 	private double ballisticCoefficient;
 
 	public int getId() {
@@ -37,11 +45,11 @@ public class CartridgeH {
 	}
 
 	public CaliberH getCaliber() {
-		return caliber;
+		return caliberVal;
 	}
 
 	public void setCaliber(CaliberH caliber) {
-		this.caliber = caliber;
+		this.caliberVal = caliber;
 	}
 
 	public String getAmmotype() {

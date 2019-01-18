@@ -4,12 +4,4 @@
   <welcome-file-list>
     <welcome-file>jsp/index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-		<servlet-name>SearchPage</servlet-name>
-		<jsp-file>jsp/search.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SearchPage</servlet-name>
-		<url-pattern>/pages/search-page</url-pattern>
-	</servlet-mapping>
 </web-app>
