@@ -47,7 +47,6 @@ public class CartridgeRepo implements Serializable {
 	}
 
 	public List<CartridgeH> findCartridges(List<SearchSpec> searchSpec) {
-		// TODO Create Criteria search
 		List<String> paramList = Arrays.asList("ammo-type","caliber","ammo-energy","ammo-velocity","ammo-mass","ammo-round-type");
 		return null;
 	}

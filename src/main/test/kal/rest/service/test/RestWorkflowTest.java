@@ -24,7 +24,7 @@ public class RestWorkflowTest {
 	@Test
 	public void test() {
 		Map<String, List<String>> paramMap = new HashMap<String, List<String>>();
-		paramMap.put("caliber", Arrays.asList("caliber1", "caliber2"));
+		paramMap.put("caliber", Arrays.asList("caliber1", "9x19","919"));
 		paramMap.put("ammo-type", Arrays.asList("ammotype1", "ammotype2"));
 		paramMap.put("gun-type", Arrays.asList("pistol"));
 		paramMap.put("gun-length", Arrays.asList("25","1 25,8","180.54", ".14 55", ".54", "54.", " 5. 4 "));

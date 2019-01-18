@@ -41,13 +41,10 @@ public class ResourceRepo implements Serializable {
 		CriteriaBuilder critbuilder = em.getCriteriaBuilder();
 		CriteriaQuery<ResourceObject> query = critbuilder.createQuery(ResourceObject.class);
 		Root<CaliberH> calibers = query.from(CaliberH.class);
-		// Target of Join is field from CaliberH
+		// Target of Join is field from CaliberH (lists with related objects)
 		Join<CaliberH, FirearmH> firearms = calibers.join("firearms", JoinType.LEFT);
 		Join<CaliberH, CartridgeH> cartridges = calibers.join("cartridges", JoinType.LEFT);
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
-		// TODO Check and build OR predicates and AND predicates, then combine
-		// both of
-		// them
 		// TODO Fill paramList with paramNames contained in searchSpecs to
 		// improve performance
 		List<String> paramList = Arrays.asList("gun-manufacturer", "gun-type", "caliber", "gun-magazine", "gun-weight",
@@ -57,7 +54,6 @@ public class ResourceRepo implements Serializable {
 			switcher(param, predicatesList, critbuilder, searchSpecCartridge, searchSpecFirearms, calibers, firearms,
 					cartridges);
 		}
-		// TODO Map results to ResourceObjects
 		query.multiselect(firearms.get("gunManufacturer"), firearms.get("gunType"), cartridges.get("ammoType"),
 				firearms.get("stdMagazineCapacity"), calibers.get("caliber"), cartridges.get("ammoManufacturer"),
 				cartridges.get("ammoName"), firearms.get("gunWeightEmptyGrams"), firearms.get("dimensionX"),
@@ -65,13 +61,12 @@ public class ResourceRepo implements Serializable {
 				cartridges.get("advMuzzLeVelocityMps"), cartridges.get("bulletMassGrams"))
 				.where(predicatesList.toArray(new Predicate[predicatesList.size()]))
 				.orderBy(critbuilder.desc(firearms.get("dimensionX")));
-		// TODO Limit results
 		List<ResourceObject> resultPM = em.createQuery(query).setMaxResults(100).getResultList();
 
 		return resultPM;
 
 	}
-
+	//TODO Decide about gunType and ammoType check
 	private void switcher(String param, List<Predicate> predicates, CriteriaBuilder critbuilder,
 			List<SearchSpec> searchSpecCartridges, List<SearchSpec> searchSpecFirearms, Root<CaliberH> calibers,
 			Join<CaliberH, FirearmH> firearms, Join<CaliberH, CartridgeH> cartridges) {
@@ -98,7 +93,7 @@ public class ResourceRepo implements Serializable {
 				int i = 0;
 				localPredicates = new Predicate[caliber.size()];
 				for (SearchSpec ss : caliber) {
-					localPredicates[i] = critbuilder.equal(firearms.get("caliberVal"), ss.string);
+					localPredicates[i] = critbuilder.like(calibers.get("caliber"), ss.string);
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
@@ -216,7 +211,7 @@ public class ResourceRepo implements Serializable {
 				int i = 0;
 				localPredicates = new Predicate[gunManufacturer.size()];
 				for (SearchSpec ss : gunManufacturer) {
-					localPredicates[i] = critbuilder.equal(firearms.get("gunManufacturer"), ss.string);
+					localPredicates[i] = critbuilder.like(firearms.get("gunManufacturer"), ss.string);
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
@@ -229,7 +224,7 @@ public class ResourceRepo implements Serializable {
 				int i = 0;
 				localPredicates = new Predicate[ammoManufacturer.size()];
 				for (SearchSpec ss : ammoManufacturer) {
-					localPredicates[i] = critbuilder.equal(cartridges.get("ammoManufacturer"), ss.string);
+					localPredicates[i] = critbuilder.like(cartridges.get("ammoManufacturer"), ss.string);
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
@@ -242,7 +237,7 @@ public class ResourceRepo implements Serializable {
 				int i = 0;
 				localPredicates = new Predicate[ammoName.size()];
 				for (SearchSpec ss : ammoName) {
-					localPredicates[i] = critbuilder.equal(cartridges.get("ammoName"), ss.string);
+					localPredicates[i] = critbuilder.like(cartridges.get("ammoName"), ss.string);
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));

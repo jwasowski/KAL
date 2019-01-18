@@ -62,8 +62,7 @@ public class SearchService implements Serializable {
 
 	/** This method will be used */
 	public List<ResourceObject> searchResources(List<SearchSpec> searchSpec) {
-		// TODO Create one query already combining data using join
-		// statement
+		
 		List<SearchSpec> searchSpecCartridge = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("ammo") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
