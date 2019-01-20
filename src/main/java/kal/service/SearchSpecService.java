@@ -46,11 +46,9 @@ public class SearchSpecService {
 		char dot = '.';
 		for(int i=0;i<s.length();i++){
 			char character = s.charAt(i);
-			if(Character.isDigit(character) || s.contains(".") && counter<=1 ){
+			if(Character.isDigit(character) || Character.compare(character, dot ) == 0 && counter<=1) {
 				isDigit = true;
-				if(Character.compare(character, dot ) == 0){
 					counter++;
-				}
 			} else {
 				return false;
 			}

@@ -63,13 +63,13 @@ public class SearchService implements Serializable {
 	/** This method will be used */
 	public List<ResourceObject> searchResources(List<SearchSpec> searchSpec) {
 		
-		List<SearchSpec> searchSpecCartridge = searchSpec.stream()
+		/*List<SearchSpec> searchSpecCartridge = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("ammo") || ss.paramName.contains("caliber"))
 				.collect(Collectors.toList());
 		List<SearchSpec> searchSpecFirearms = searchSpec.stream()
 				.filter(ss -> ss.paramName.contains("gun") || ss.paramName.contains("caliber"))
-				.collect(Collectors.toList());
+				.collect(Collectors.toList());*/
 
-		return resourceData.findResources(searchSpecCartridge, searchSpecFirearms);
+		return resourceData.findResources(searchSpec);
 	}
 }

@@ -2,6 +2,8 @@ package kal.BO;
 //TODO Check params
 public class ResourceObject {
 	/** Firearm */
+	private String gunModel;
+	/** Firearm */
 	private String gunManufacturer;
 	/** Firearm */
 	private String gunType;
@@ -28,32 +30,51 @@ public class ResourceObject {
 	/** Cartridge */
 	private double bulletMassGrams;
 	/** Combined param */
-	private double effectiveRange;
+	//private double effectiveRange;
 	/** Combined param */
-	private double gunRecoilX;
+	//private double gunRecoilX;
 	/** Combined param */
-	private double gunRecoilY;
-
+	//private double gunRecoilY;
+	private int parentId;
 	
 
-	public ResourceObject(String gunManufacturer, String gunType, String ammoType, int stdMagazineCapacity,
+	public ResourceObject(String gunModel,String gunManufacturer, String gunType, String ammoType, int stdMagazineCapacity,
 			String caliber, String ammoManufacturer, String ammoName, double gunWeightEmptyGrams, double gunLength,
 			double muzzleLengthMm, double advMuzzleEnergyJ, double advMuzzLeVelocityMps, double bulletMassGrams/*,
-			double effectiveRange, double gunRecoilX, double gunRecoilY*/) {
+			double effectiveRange, double gunRecoilX, double gunRecoilY*//*, Integer parentId*/) {
 		super();
-		this.gunManufacturer = gunManufacturer;
-		this.gunType = gunType;
-		this.ammoType = ammoType;
-		this.stdMagazineCapacity = stdMagazineCapacity;
-		this.caliber = caliber;
-		this.ammoManufacturer = ammoManufacturer;
-		this.ammoName = ammoName;
-		this.gunWeightEmptyGrams = gunWeightEmptyGrams;
-		this.gunLength = gunLength;
-		this.muzzleLengthMm = muzzleLengthMm;
-		this.advMuzzleEnergyJ = advMuzzleEnergyJ;
-		this.advMuzzLeVelocityMps = advMuzzLeVelocityMps;
-		this.bulletMassGrams = bulletMassGrams;
+		if(gunModel != null){
+			this.setGunModel(gunModel);}
+		if(gunManufacturer != null){
+		this.gunManufacturer = gunManufacturer;}
+		if(gunType != null){
+		this.gunType = gunType;}
+		if(ammoType != null){
+		this.ammoType = ammoType;}
+		if(stdMagazineCapacity != 0){
+		this.stdMagazineCapacity = stdMagazineCapacity;}
+		if(caliber != null){
+		this.caliber = caliber;} else {
+			this.caliber = "twoja stara";
+		}
+		if(ammoManufacturer != null){
+		this.ammoManufacturer = ammoManufacturer;}
+		if(ammoName != null){
+		this.ammoName = ammoName;}
+		if(gunWeightEmptyGrams != 0){
+		this.gunWeightEmptyGrams = gunWeightEmptyGrams;}
+		if(gunLength != 0){
+		this.gunLength = gunLength;}
+		if(muzzleLengthMm != 0){
+		this.muzzleLengthMm = muzzleLengthMm;}
+		if(advMuzzleEnergyJ != 0){
+		this.advMuzzleEnergyJ = advMuzzleEnergyJ;}
+		if(advMuzzLeVelocityMps != 0){
+		this.advMuzzLeVelocityMps = advMuzzLeVelocityMps;}
+		if(bulletMassGrams != 0){
+		this.bulletMassGrams = bulletMassGrams;}
+		/*if(parentId != 0){
+		this.setParentId(parentId);}*/
 		/*this.effectiveRange = effectiveRange;
 		this.gunRecoilX = gunRecoilX;
 		this.gunRecoilY = gunRecoilY;*/
@@ -143,7 +164,7 @@ public class ResourceObject {
 		this.bulletMassGrams = bulletMassGrams;
 	}
 
-	public double getEffectiveRange() {
+	/*public double getEffectiveRange() {
 		return effectiveRange;
 	}
 
@@ -165,7 +186,7 @@ public class ResourceObject {
 
 	public void setGunRecoilY(double gunRecoilY) {
 		this.gunRecoilY = gunRecoilY;
-	}
+	}*/
 
 	public String getGunManufacturer() {
 		return gunManufacturer;
@@ -189,6 +210,22 @@ public class ResourceObject {
 
 	public void setAmmoName(String ammoName) {
 		this.ammoName = ammoName;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getGunModel() {
+		return gunModel;
+	}
+
+	public void setGunModel(String gunModel) {
+		this.gunModel = gunModel;
 	}
 
 }

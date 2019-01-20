@@ -24,7 +24,7 @@ public class RestWorkflowTest {
 	@Test
 	public void test() {
 		Map<String, List<String>> paramMap = new HashMap<String, List<String>>();
-		paramMap.put("caliber", Arrays.asList("caliber1", "9x19","919"));
+		paramMap.put("caliber", Arrays.asList("caliber1", "9x19","919","5.19 x","5.56","x","x19"));
 		paramMap.put("ammo-type", Arrays.asList("ammotype1", "ammotype2"));
 		paramMap.put("gun-type", Arrays.asList("pistol"));
 		paramMap.put("gun-length", Arrays.asList("25","1 25,8","180.54", ".14 55", ".54", "54.", " 5. 4 "));
@@ -34,7 +34,12 @@ public class RestWorkflowTest {
 		System.out.println("paramName | string | value");
 		searchSpec.forEach(SearchSpec -> System.out.println(SearchSpec.paramName + " " + SearchSpec.string+ " " +SearchSpec.value));
 		searchResources(searchSpec);
-		
+		List<String> paramList = new ArrayList<String>();
+		for (SearchSpec ss: searchSpec){
+			if(!paramList.contains(ss.paramName)){
+			paramList.add(ss.paramName);}}
+		System.out.println("StringName |");
+		paramList.forEach(string -> System.out.println(string));
 		// TODO Update test with Resource repo logic
 		assertEquals(true, true);
 		//fail();
@@ -47,11 +52,11 @@ public class RestWorkflowTest {
 		char dot = '.';
 		for(int i=0;i<s.length();i++){
 			char character = s.charAt(i);
-			if(Character.isDigit(character) || s.contains(".") && counter<=1 ){
+			if(Character.isDigit(character) || Character.compare(character, dot ) == 0 && counter<=1) {
 				isDigit = true;
-				if(Character.compare(character, dot ) == 0){
+				/*if(Character.compare(character, dot ) == 0){*/
 					counter++;
-				}
+				//}
 			} else {
 				return false;
 			}

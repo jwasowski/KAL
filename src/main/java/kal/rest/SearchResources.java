@@ -33,13 +33,19 @@ public class SearchResources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response searchResources(@Context UriInfo ui) {
 		Map<String, List<String>> paramMap = ui.getQueryParameters();
-		List<SearchSpec> searchSpec = searchSpecService.createSearchSpec(paramMap);
-		List<ResourceObject> returnList = searchService.searchResources(searchSpec);
-		if(!returnList.isEmpty()){
-		return Response.ok(returnList).build();}
-		else {
-			return Response.ok("Nothing found").build();
+		if (!paramMap.isEmpty()) {
+			{
+				List<SearchSpec> searchSpec = searchSpecService.createSearchSpec(paramMap);
+				List<ResourceObject> returnList = searchService.searchResources(searchSpec);
+				if (!returnList.isEmpty()) {
+					int size = returnList.size();
+					return Response.ok(returnList).build();
+				} else {
+					return Response.ok("Nothing found").build();
+				}
+			}
 		}
+		return Response.ok("Nothing found: empty map").build();
 	}
-	// TODO Create endpoints for frontend selects to support AJAX calls
 }
+// TODO Create endpoints for frontend selects to support AJAX calls

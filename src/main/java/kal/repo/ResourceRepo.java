@@ -36,44 +36,48 @@ public class ResourceRepo implements Serializable {
 	@EManager
 	private EntityManager em;
 
-	public List<ResourceObject> findResources(List<SearchSpec> searchSpecCartridge,
-			List<SearchSpec> searchSpecFirearms) {
+	public List<ResourceObject> findResources(/*List<SearchSpec> searchSpecCartridge,
+			List<SearchSpec> searchSpecFirearms*/List<SearchSpec> searchSpec) {
 		CriteriaBuilder critbuilder = em.getCriteriaBuilder();
 		CriteriaQuery<ResourceObject> query = critbuilder.createQuery(ResourceObject.class);
 		Root<CaliberH> calibers = query.from(CaliberH.class);
 		// Target of Join is field from CaliberH (lists with related objects)
+		//TODO Configure Joins, check other types
 		Join<CaliberH, FirearmH> firearms = calibers.join("firearms", JoinType.LEFT);
 		Join<CaliberH, CartridgeH> cartridges = calibers.join("cartridges", JoinType.LEFT);
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 		// TODO Fill paramList with paramNames contained in searchSpecs to
 		// improve performance
-		List<String> paramList = Arrays.asList("gun-manufacturer", "gun-type", "caliber", "gun-magazine", "gun-weight",
-				"gun-length", "gun-barrel-length", "ammo-type", "caliber", "ammo-manufacturer", "ammo-name",
-				"ammo-energy", "ammo-velocity", "ammo-mass");
+		List<String> paramList = new ArrayList<String>();
+		for (SearchSpec ss: searchSpec){
+			if(!paramList.contains(ss.paramName)){
+				paramList.add(ss.paramName);}
+			}
 		for (String param : paramList) {
-			switcher(param, predicatesList, critbuilder, searchSpecCartridge, searchSpecFirearms, calibers, firearms,
+			switcher(param, predicatesList, critbuilder, searchSpec, calibers, firearms,
 					cartridges);
 		}
-		query.multiselect(firearms.get("gunManufacturer"), firearms.get("gunType"), cartridges.get("ammoType"),
+		query.multiselect(firearms.get("gunModel"),firearms.get("gunManufacturer"), firearms.get("gunType"), cartridges.get("ammoType"),
 				firearms.get("stdMagazineCapacity"), calibers.get("caliber"), cartridges.get("ammoManufacturer"),
 				cartridges.get("ammoName"), firearms.get("gunWeightEmptyGrams"), firearms.get("dimensionX"),
 				firearms.get("muzzleLengthMm"), cartridges.get("advMuzzleEnergyJ"),
 				cartridges.get("advMuzzLeVelocityMps"), cartridges.get("bulletMassGrams"))
-				.where(predicatesList.toArray(new Predicate[predicatesList.size()]))
-				.orderBy(critbuilder.desc(firearms.get("dimensionX")));
+				.where(predicatesList.toArray(new Predicate[predicatesList.size()]));
+				/*.orderBy(critbuilder.desc(firearms.get("dimensionX")));*/
 		List<ResourceObject> resultPM = em.createQuery(query).setMaxResults(100).getResultList();
 
 		return resultPM;
 
 	}
 	//TODO Decide about gunType and ammoType check
+	//TODO Needed workaround for LIKE and numbers only
 	private void switcher(String param, List<Predicate> predicates, CriteriaBuilder critbuilder,
-			List<SearchSpec> searchSpecCartridges, List<SearchSpec> searchSpecFirearms, Root<CaliberH> calibers,
+			List<SearchSpec> searchSpec, Root<CaliberH> calibers,
 			Join<CaliberH, FirearmH> firearms, Join<CaliberH, CartridgeH> cartridges) {
 		Predicate[] localPredicates;
 		switch (param) {
 		case "gun-type":
-			List<SearchSpec> gunType = searchSpecFirearms.stream().filter(ss -> ss.paramName.contains("gun-type"))
+			List<SearchSpec> gunType = searchSpec.stream().filter(ss -> ss.paramName.contains("gun-type"))
 					.collect(Collectors.toList());
 			// TODO Check if null check is needed
 			if (!gunType.isEmpty()) {
@@ -87,20 +91,20 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "caliber":
-			List<SearchSpec> caliber = searchSpecFirearms.stream().filter(ss -> ss.paramName.contains("caliber"))
+			List<SearchSpec> caliber = searchSpec.stream().filter(ss -> ss.paramName.contains("caliber"))
 					.collect(Collectors.toList());
 			if (!caliber.isEmpty()) {
 				int i = 0;
 				localPredicates = new Predicate[caliber.size()];
 				for (SearchSpec ss : caliber) {
-					localPredicates[i] = critbuilder.like(calibers.get("caliber"), ss.string);
+					localPredicates[i] = critbuilder.like(calibers.get("caliber"), "%"+ss.string+"%");
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
 			}
 			break;
 		case "gun-magazine":
-			List<SearchSpec> gunMagazine = searchSpecFirearms.stream()
+			List<SearchSpec> gunMagazine = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("gun-magazine")).collect(Collectors.toList());
 			if (!gunMagazine.isEmpty()) {
 				int i = 0;
@@ -113,7 +117,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "gun-weight":
-			List<SearchSpec> gunWeight = searchSpecFirearms.stream().filter(ss -> ss.paramName.contains("gun-weight"))
+			List<SearchSpec> gunWeight = searchSpec.stream().filter(ss -> ss.paramName.contains("gun-weight"))
 					.collect(Collectors.toList());
 			if (!gunWeight.isEmpty()) {
 				int i = 0;
@@ -126,7 +130,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "gun-length":
-			List<SearchSpec> gunLength = searchSpecFirearms.stream().filter(ss -> ss.paramName.contains("gun-weight"))
+			List<SearchSpec> gunLength = searchSpec.stream().filter(ss -> ss.paramName.contains("gun-weight"))
 					.collect(Collectors.toList());
 			if (!gunLength.isEmpty()) {
 				int i = 0;
@@ -139,7 +143,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "gun-barrel-length":
-			List<SearchSpec> gunBarrelLength = searchSpecFirearms.stream()
+			List<SearchSpec> gunBarrelLength = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("gun-barrel-length")).collect(Collectors.toList());
 			if (!gunBarrelLength.isEmpty()) {
 				int i = 0;
@@ -152,7 +156,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "ammo-type":
-			List<SearchSpec> ammoType = searchSpecCartridges.stream().filter(ss -> ss.paramName.contains("ammo-type"))
+			List<SearchSpec> ammoType = searchSpec.stream().filter(ss -> ss.paramName.contains("ammo-type"))
 					.collect(Collectors.toList());
 			if (!ammoType.isEmpty()) {
 				int i = 0;
@@ -165,7 +169,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "ammo-energy":
-			List<SearchSpec> ammoEnergy = searchSpecCartridges.stream()
+			List<SearchSpec> ammoEnergy = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("ammo-energy")).collect(Collectors.toList());
 			if (!ammoEnergy.isEmpty()) {
 				int i = 0;
@@ -178,7 +182,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "ammo-velocity":
-			List<SearchSpec> ammoVelocity = searchSpecCartridges.stream()
+			List<SearchSpec> ammoVelocity = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("ammo-velocity")).collect(Collectors.toList());
 			if (!ammoVelocity.isEmpty()) {
 				int i = 0;
@@ -192,7 +196,7 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "ammo-mass":
-			List<SearchSpec> ammoMass = searchSpecCartridges.stream().filter(ss -> ss.paramName.contains("ammo-mass"))
+			List<SearchSpec> ammoMass = searchSpec.stream().filter(ss -> ss.paramName.contains("ammo-mass"))
 					.collect(Collectors.toList());
 			if (!ammoMass.isEmpty()) {
 				int i = 0;
@@ -205,39 +209,39 @@ public class ResourceRepo implements Serializable {
 			}
 			break;
 		case "gun-manufacturer":
-			List<SearchSpec> gunManufacturer = searchSpecFirearms.stream()
+			List<SearchSpec> gunManufacturer = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("gun-manufacturer")).collect(Collectors.toList());
 			if (!gunManufacturer.isEmpty()) {
 				int i = 0;
 				localPredicates = new Predicate[gunManufacturer.size()];
 				for (SearchSpec ss : gunManufacturer) {
-					localPredicates[i] = critbuilder.like(firearms.get("gunManufacturer"), ss.string);
+					localPredicates[i] = critbuilder.like(firearms.get("gunManufacturer"), "%"+ss.string+"%");
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
 			}
 			break;
 		case "ammo-manufacturer":
-			List<SearchSpec> ammoManufacturer = searchSpecCartridges.stream()
+			List<SearchSpec> ammoManufacturer = searchSpec.stream()
 					.filter(ss -> ss.paramName.contains("ammo-manufacturer")).collect(Collectors.toList());
 			if (!ammoManufacturer.isEmpty()) {
 				int i = 0;
 				localPredicates = new Predicate[ammoManufacturer.size()];
 				for (SearchSpec ss : ammoManufacturer) {
-					localPredicates[i] = critbuilder.like(cartridges.get("ammoManufacturer"), ss.string);
+					localPredicates[i] = critbuilder.like(cartridges.get("ammoManufacturer"), "%"+ss.string+"%");
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
 			}
 			break;
 		case "ammo-name":
-			List<SearchSpec> ammoName = searchSpecCartridges.stream().filter(ss -> ss.paramName.contains("ammo-name"))
+			List<SearchSpec> ammoName = searchSpec.stream().filter(ss -> ss.paramName.contains("ammo-name"))
 					.collect(Collectors.toList());
 			if (!ammoName.isEmpty()) {
 				int i = 0;
 				localPredicates = new Predicate[ammoName.size()];
 				for (SearchSpec ss : ammoName) {
-					localPredicates[i] = critbuilder.like(cartridges.get("ammoName"), ss.string);
+					localPredicates[i] = critbuilder.like(cartridges.get("ammoName"), "%"+ss.string+"%");
 					i++;
 				}
 				predicates.add(critbuilder.or(localPredicates));
