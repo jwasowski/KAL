@@ -35,13 +35,12 @@ public class ResourceObject {
 	//private double gunRecoilX;
 	/** Combined param */
 	//private double gunRecoilY;
-	private int parentId;
 	
 
 	public ResourceObject(String gunModel,String gunManufacturer, String gunType, String ammoType, int stdMagazineCapacity,
 			String caliber, String ammoManufacturer, String ammoName, double gunWeightEmptyGrams, double gunLength,
 			double muzzleLengthMm, double advMuzzleEnergyJ, double advMuzzLeVelocityMps, double bulletMassGrams/*,
-			double effectiveRange, double gunRecoilX, double gunRecoilY*//*, Integer parentId*/) {
+			double effectiveRange, double gunRecoilX, double gunRecoilY*/) {
 		super();
 		if(gunModel != null){
 			this.setGunModel(gunModel);}
@@ -54,9 +53,7 @@ public class ResourceObject {
 		if(stdMagazineCapacity != 0){
 		this.stdMagazineCapacity = stdMagazineCapacity;}
 		if(caliber != null){
-		this.caliber = caliber;} else {
-			this.caliber = "twoja stara";
-		}
+		this.caliber = caliber;} 
 		if(ammoManufacturer != null){
 		this.ammoManufacturer = ammoManufacturer;}
 		if(ammoName != null){
@@ -73,8 +70,6 @@ public class ResourceObject {
 		this.advMuzzLeVelocityMps = advMuzzLeVelocityMps;}
 		if(bulletMassGrams != 0){
 		this.bulletMassGrams = bulletMassGrams;}
-		/*if(parentId != 0){
-		this.setParentId(parentId);}*/
 		/*this.effectiveRange = effectiveRange;
 		this.gunRecoilX = gunRecoilX;
 		this.gunRecoilY = gunRecoilY;*/
@@ -210,14 +205,6 @@ public class ResourceObject {
 
 	public void setAmmoName(String ammoName) {
 		this.ammoName = ammoName;
-	}
-
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getGunModel() {

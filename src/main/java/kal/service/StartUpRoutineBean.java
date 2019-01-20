@@ -56,7 +56,7 @@ public class StartUpRoutineBean {
 		federalAE.setAmmotype("FMJ");
 		federalAE.setAmmomanufacturer("Federal");
 		federalAE.setAmmoname("American Eagle");
-		federalAE.setBulletmassgrams(115.0);
+		federalAE.setBulletmassgrams(115.0*0.06479891);
 		federalAE.setAdvmuzzlevelocitymps(1180*0.3048);
 		federalAE.setAdvmuzzleenergyj(356/0.7375621);
 		federalAE.setBallisticcoefficient(0.19);
@@ -65,7 +65,7 @@ public class StartUpRoutineBean {
 		federalAE2.setAmmotype("FMJ");
 		federalAE2.setAmmomanufacturer("Federal");
 		federalAE2.setAmmoname("American Eagle Heavy");
-		federalAE2.setBulletmassgrams(147.0);
+		federalAE2.setBulletmassgrams(147.0*0.06479891);
 		federalAE2.setAdvmuzzlevelocitymps(1000*0.3048);
 		federalAE2.setAdvmuzzleenergyj(326/0.7375621);
 		federalAE2.setBallisticcoefficient(0.2);
@@ -108,15 +108,37 @@ public class StartUpRoutineBean {
 		radomSport.setDimensiony(32.0);
 		radomSport.setDimensionz(139.0);
 		radomSport.setCcwbox(9.1*0.32*1.39);
+		FirearmH radomSport762 = new FirearmH();
+		radomSport762.setCaliber(ammo762x39);
+		radomSport762.setGuntype("Rifle");
+		radomSport762.setGunmanufacturer("FB Radom");
+		radomSport762.setGunmodel("RADOM-SPORT 762");
+		radomSport762.setStdmagazinecapacity(30);
+		radomSport762.setMuzzlelengthmm(419);
+		radomSport762.setGunweightemptygrams(3600.0);
+		radomSport762.setBoreaxisoffsetmm(1.0);
+		radomSport762.setDimensionx(870.0);
+		radomSport762.setDimensiony(32.0);
+		radomSport762.setDimensionz(139.0);
+		radomSport762.setCcwbox(8.7*0.32*1.39);
 		CartridgeH nato556x45 = new CartridgeH();
 		nato556x45.setCaliber(ammo556x45Nato);
 		nato556x45.setAmmotype("FMJ");
-		nato556x45.setAmmomanufacturer("Twoja stara");
+		nato556x45.setAmmomanufacturer("Federal");
 		nato556x45.setAmmoname("American wpierdol");
-		nato556x45.setBulletmassgrams(200.0);
+		nato556x45.setBulletmassgrams(200.0*0.06479891);
 		nato556x45.setAdvmuzzlevelocitymps(1200*0.3048);
 		nato556x45.setAdvmuzzleenergyj(400/0.7375621);
 		nato556x45.setBallisticcoefficient(0.3);
+		CartridgeH rus762x39 = new CartridgeH();
+		rus762x39.setCaliber(ammo762x39);
+		rus762x39.setAmmotype("FMJ");
+		rus762x39.setAmmomanufacturer("Russian Surplus");
+		rus762x39.setAmmoname("Russian Surplus 7.62x39");
+		rus762x39.setBulletmassgrams(123.0*0.06479891);
+		rus762x39.setAdvmuzzlevelocitymps(2421*0.3048);
+		rus762x39.setAdvmuzzleenergyj(1607/0.7375621);
+		rus762x39.setBallisticcoefficient(0.138);
 		ammo9x19.getCartridges().add(federalAE);
 		ammo9x19.getFirearms().add(glock19gen4);
 		ammo9x19.getFirearms().add(glock17gen4);
@@ -124,6 +146,8 @@ public class StartUpRoutineBean {
 		ammo9x19.getCartridges().add(federalAE2);
 		ammo556x45Nato.getCartridges().add(nato556x45);
 		ammo556x45Nato.getFirearms().add(radomSport);
+		ammo762x39.getCartridges().add(rus762x39);
+		ammo762x39.getFirearms().add(radomSport762);
 		em.persist(ammo9x19);
 		em.persist(ammo762x39);
 		em.persist(glock19gen4);
@@ -134,6 +158,9 @@ public class StartUpRoutineBean {
 		em.persist(ammo556x45Nato);
 		em.persist(nato556x45);
 		em.persist(radomSport);
+		em.persist(ammo762x39);
+		em.persist(rus762x39);
+		em.persist(radomSport762);
 		
 	}
 
