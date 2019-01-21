@@ -1,6 +1,8 @@
-# Project Title
+# KAL - Guns and ammunitions comparator REST Service
 
-KAL - Guns and ammunitions comparator REST Service
+KAL - Guns and ammunitions comparator REST Service is a backend service for KAL project. 
+It is designed to feed KAL web application with data based on query parameters of the HTTP GET request on endpoints. Technological stack: Java 8 / Java EE 8, JPA, Hibernate, Apache Derby db, Maven, JAX-RS, Jersey, CDI (Weld), EJB, JUnit.
+The logic generating database queries is written using JPA Criteria API. That means, all the queries are generated dynamically based on created search specification from query parameters.
 
 ## Getting Started
 
