@@ -80,7 +80,7 @@ Currently there are only some dummy data present (3 Handguns, 2 Rifles, 2 9x19 a
 
 ## Authors
 
-* **Jakub Wąsowski** - *Rest Service* - [PurpleBooth](https://github.com/jwasowski)
+* **Jakub Wąsowski** - *Rest Service* - [JWasowski](https://github.com/jwasowski)
 
 ## License
 
