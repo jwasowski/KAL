@@ -125,7 +125,7 @@ public class StartUpRoutineBean {
 		nato556x45.setCaliber(ammo556x45Nato);
 		nato556x45.setAmmotype("FMJ");
 		nato556x45.setAmmomanufacturer("Federal");
-		nato556x45.setAmmoname("American wpierdol");
+		nato556x45.setAmmoname("American pounding");
 		nato556x45.setBulletmassgrams(200.0*0.06479891);
 		nato556x45.setAdvmuzzlevelocitymps(1200*0.3048);
 		nato556x45.setAdvmuzzleenergyj(400/0.7375621);
