@@ -84,6 +84,6 @@ Currently there are only some dummy data present (3 Handguns, 2 Rifles, 2 9x19 a
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 
